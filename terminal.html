@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Access Terminal</title>
+
+<style>
+body{
+background:black;
+color:#00ff00;
+font-family:monospace;
+text-align:center;
+margin-top:100px;
+}
+
+input{
+background:black;
+color:#00ff00;
+border:1px solid #00ff00;
+padding:10px;
+font-family:monospace;
+}
+
+button{
+background:black;
+color:#00ff00;
+border:1px solid #00ff00;
+padding:10px;
+margin-top:10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>ARCHIVE TERMINAL</h1>
+
+<p>ENTER PASSWORD</p>
+
+<input type="password" id="pass">
+<br>
+<button onclick="check()">ACCESS</button>
+
+<p id="message"></p>
+
+<script>
+
+function check(){
+
+var password = document.getElementById("pass").value;
+
+if(password == "spider"){
+
+window.location.href="truth.html";
+
+}else{
+
+document.getElementById("message").innerHTML="ACCESS DENIED";
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
