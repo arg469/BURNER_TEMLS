@@ -10,20 +10,6 @@ color:#00ff00;
 font-family:monospace;
 text-align:center;
 margin-top:100px;
-overflow:hidden;
-}
-
-/* glitch animation */
-@keyframes glitch {
-0% { transform: translate(2px,2px); }
-25% { transform: translate(-2px,-2px); }
-50% { transform: translate(2px,-2px); }
-75% { transform: translate(-2px,2px); }
-100% { transform: translate(2px,2px); }
-}
-
-.glitch {
-animation: glitch 0.2s infinite;
 }
 
 /* fullscreen jumpscare */
@@ -41,21 +27,15 @@ z-index:9999;
 
 </head>
 
-<body onclick="start()">
+<body>
 
-<h1 class="glitch">ARCHIVE TERMINAL</h1>
+<h1>ARCHIVE TERMINAL</h1>
 
-<p>> Accessing recovered files...</p>
-<p>> Data corruption detected...</p>
-<p>> Click anywhere to continue</p>
+<p>> Click to access system</p>
 
-<!-- KEYWORD: SPIDER -->
+<button onclick="start()">ACCESS</button>
 
 <img id="scare" src="scare.png">
-
-<audio id="bg">
-  <source src="creepy.mp3" type="audio/mpeg">
-</audio>
 
 <audio id="scream">
   <source src="scream.mp3" type="audio/mpeg">
@@ -65,28 +45,20 @@ z-index:9999;
 
 function start(){
 
-document.getElementById("bg").play();
+var password = prompt("ENTER PASSWORD:");
 
-// random delay for unpredictability
-var delay = Math.floor(Math.random() * 5000) + 3000;
+if(password == "BURNINGWORLD"){
 
-setTimeout(function(){
+// GO TO REAL SITE
+window.location.href = "files.html";
 
-// flash
-document.body.style.background = "white";
+}else{
 
-setTimeout(()=>{
-document.body.style.background = "black";
-},100);
-
-// shake
-document.body.classList.add("glitch");
-
-// jumpscare
+// WRONG PASSWORD = JUMPSCARE
 document.getElementById("scare").style.display="block";
 document.getElementById("scream").play();
 
-}, delay);
+}
 
 }
 
