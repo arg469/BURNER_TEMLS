@@ -1,3 +1,0 @@
-<audio autoplay loop>
-  <source src="creepy.mp3" type="audio/mpeg">
-</audio>
