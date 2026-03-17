@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>FILE 01</title>
+
+<style>
+body{
+background:black;
+color:#00ff00;
+font-family:monospace;
+text-align:center;
+}
+
+img{
+max-width:90%;
+margin-top:20px;
+border:2px solid #00ff00;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>FILE_01</h1>
+
+<p>> Recovered image file</p>
+<p>> Condition: corrupted</p>
+
+<img src="victim1.png">
+
+<p id="hidden"></p>
+
+<script>
+
+// creepy delayed message
+setTimeout(()=>{
+document.getElementById("hidden").innerHTML = "…this was not in the original file.";
+},5000);
+
+</script>
+
+</body>
+</html>
