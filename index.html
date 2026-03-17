@@ -30,3 +30,28 @@ margin-top:100px;
 <audio autoplay loop>
   <source src="creepy.mp3" type="audio/mpeg">
 </audio>
+<h1 onclick="start()">CLICK TO ACCESS FILE</h1>
+
+<img id="scare" src="scare.png" style="display:none; width:100%;">
+
+<audio id="bg">
+  <source src="creepy.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="scream">
+  <source src="scream.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+function start(){
+document.getElementById("bg").play();
+
+setTimeout(function(){
+document.getElementById("scare").style.display="block";
+document.getElementById("scream").play();
+}, 3000);
+
+}
+
+</script>
