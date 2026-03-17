@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>REPORT_02</title>
+
+<style>
+body{
+background:black;
+color:#00ff00;
+font-family:monospace;
+text-align:center;
+}
+
+img{
+max-width:90%;
+margin-top:20px;
+border:2px solid #00ff00;
+filter:contrast(120%);
+}
+
+/* subtle flicker */
+@keyframes flicker {
+0%{opacity:1;}
+50%{opacity:0.85;}
+100%{opacity:1;}
+}
+
+body{
+animation:flicker 2s infinite;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>REPORT_02</h1>
+
+<p>> File status: partially recovered</p>
+<p>> Warning: content unstable</p>
+
+<img src="victim2.png">
+
+<p id="text"></p>
+
+<script>
+
+// delayed creepy message
+setTimeout(()=>{
+document.getElementById("text").innerHTML =
+"it wasn’t just killing them.";
+},4000);
+
+setTimeout(()=>{
+document.getElementById("text").innerHTML =
+"it was rebuilding itself.";
+},8000);
+
+</script>
+
+<!-- CLUE: LIMBS -->
+
+</body>
+</html>
