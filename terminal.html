@@ -1,62 +1,73 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Access Terminal</title>
+<title>ARCHIVE_TERMINAL</title>
 
 <style>
 body{
 background:black;
 color:#00ff00;
 font-family:monospace;
-text-align:center;
-margin-top:100px;
+padding:20px;
 }
 
 input{
 background:black;
 color:#00ff00;
-border:1px solid #00ff00;
-padding:10px;
+border:none;
+outline:none;
 font-family:monospace;
 }
 
-button{
-background:black;
-color:#00ff00;
-border:1px solid #00ff00;
-padding:10px;
-margin-top:10px;
+.cursor{
+display:inline-block;
+width:10px;
+background:#00ff00;
+animation:blink 1s infinite;
+}
+
+@keyframes blink{
+0%{opacity:1;}
+50%{opacity:0;}
+100%{opacity:1;}
 }
 </style>
-
 </head>
 
 <body>
 
-<h1>ARCHIVE TERMINAL</h1>
+<p>> ARCHIVE TERMINAL</p>
+<p>> ENTER PASSWORD</p>
 
-<p>ENTER PASSWORD</p>
+<span>> </span>
+<input type="text" id="cmd" autofocus>
+<span class="cursor"></span>
 
-<input type="password" id="pass">
-<br>
-<button onclick="check()">ACCESS</button>
-
-<p id="message"></p>
+<p id="output"></p>
 
 <script>
 
+document.getElementById("cmd").addEventListener("keydown", function(e){
+if(e.key === "Enter"){
+check();
+}
+});
+
 function check(){
 
-var password = document.getElementById("pass").value;
+var input = document.getElementById("cmd").value;
 
-if(password == "spider"){
+if(input == "BURN_CD"){
 
-window.location.href="truth.html";
+document.getElementById("output").innerHTML =
+"ACCESS GRANTED<br><br>" +
+"<a href='files.html'>OPEN FILES</a>";
 
 }else{
 
-document.getElementById("message").innerHTML="ACCESS DENIED";
-
+document.getElementById("output").innerHTML =
+"ACCESS DENIED<br>IT IS NOT SAFE HERE";
+document.body.style.background = "darkred";
 }
 
 }
