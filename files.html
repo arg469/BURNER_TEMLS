@@ -1,51 +1,96 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>FILES</title>
+<title>ARCHIVE FILES</title>
 
 <style>
 body{
 background:black;
 color:#00ff00;
 font-family:monospace;
-padding:40px;
+padding:20px;
 }
 
 a{
 color:#00ff00;
-display:block;
-margin:10px 0;
+text-decoration:none;
+}
+
+input{
+background:black;
+color:#00ff00;
+border:1px solid #00ff00;
+margin-top:5px;
+}
+
+button{
+background:black;
+color:#00ff00;
+border:1px solid #00ff00;
+margin-left:5px;
+}
+
+h2{
+margin-top:30px;
 }
 </style>
-
 </head>
 
 <body>
 
-<h1>RECOVERED FILES</h1>
+<h1>ARCHIVE DATABASE</h1>
+<p>> ACCESS LEVEL: PARTIAL</p>
 
-<p>> Access granted</p>
+<!-- UNLOCKED FILES -->
+<h2>AVAILABLE FILES</h2>
 
-<a href="log1.html">LOG_01</a>
-<a href="log2.html">LOG_02</a>
-<a href="subjects.html">SUBJECT_DATABASE</a>
-<a href="terminal.html">TERMINAL_ACCESS</a>
-<a href="victim1.html">IMAGE_01</a>
-<a href="victim2.html">REPORT_02</a>
-<!-- hidden clue -->
-<!-- SUBJECT 3 ACTIVE -->
+<a href="victim1.html">REPORT_01</a><br>
+<a href="victim2.html">REPORT_02</a><br>
+<a href="report3.html">REPORT_03</a><br>
 
-</body>
-</html><!DOCTYPE html>
-<html>
-<head>
-<title>FILES</title>
+<!-- LOCKED FILES -->
+<h2>RESTRICTED FILES</h2>
 
-<style>
-body{
-background:black;
-color:#00ff00;
-font-family:monospace;
-padding:40px;
+<p>VIDEO_01</p>
+<input type="text" id="v1">
+<button onclick="openVideo1()">OPEN</button>
+<p id="msg1"></p>
+
+<p>REPORT_04</p>
+<input type="text" id="r4">
+<button onclick="openReport4()">OPEN</button>
+<p id="msg2"></p>
+
+<!-- SCRIPT -->
+<script>
+
+// VIDEO 1 PASSWORD
+function openVideo1(){
+var p = document.getElementById("v1").value;
+
+if(p.toLowerCase() == "limbs"){
+window.location.href="video1.html";
+}else{
+document.getElementById("msg1").innerHTML="ACCESS DENIED";
+document.body.style.background="darkred";
+}
 }
 
+// REPORT 4 PASSWORD
+function openReport4(){
+var p = document.getElementById("r4").value;
+
+if(p.toLowerCase() == "victim3"){
+window.location.href="report4.html";
+}else{
+document.getElementById("msg2").innerHTML="ACCESS DENIED";
+}
+}
+
+</script>
+
+<!-- hidden hint -->
+<!-- the body builds itself -->
+
+</body>
+</html>
