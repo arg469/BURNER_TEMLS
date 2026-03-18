@@ -48,7 +48,24 @@ function start(){
 var password = prompt("ENTER PASSWORD:");
 
 if(password == "BURNINGWORLD"){
+function checkPassword(){
+let password = document.getElementById("password").value;
 
+if(password == "BURNINGWORLD"){
+window.location.href = "page1.html";
+}
+else if(password == "BURN_CD"){
+document.body.innerHTML="<h1>ACCESSING ARCHIVE...</h1>";
+setTimeout(()=>{
+window.location.href="burn_cd.html";
+},2000);
+}
+}
+else{
+alert("ACCESS DENIED");
+}
+
+}
 // GO TO REAL SITE
 window.location.href = "files.html";
 
