@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ARCHIVE_TERMINAL</title>
+
+<style>
+body{
+background:black;
+color:#00ff00;
+font-family:monospace;
+padding:20px;
+}
+
+#terminal{
+max-width:800px;
+margin:auto;
+}
+
+.line{
+margin:5px 0;
+}
+
+a{
+color:#00ff00;
+text-decoration:none;
+}
+
+a:hover{
+text-decoration:underline;
+}
+
+.blink{
+animation:blink 1s infinite;
+}
+
+@keyframes blink{
+0%, 50%, 100%{opacity:1;}
+25%, 75%{opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<div id="terminal">
+
+<div class="line">> ACCESS CODE ACCEPTED</div>
+<div class="line">> WELCOME, USER</div>
+<div class="line">> LOADING ARCHIVE...</div>
+
+<br>
+
+<div class="line">> FILES FOUND:</div>
+
+<div class="line">[1] <a href="video1.html">experiment_footage_01</a></div>
+<div class="line">[2] <a href="report4.html">blood_test_log</a></div>
+<div class="line">[3] <a href="#" onclick="locked()">corrupted_file</a></div>
+
+<br>
+
+<div class="line">> WARNING:</div>
+<div class="line">> SOME FILES REQUIRE ADDITIONAL KEYS</div>
+
+<br>
+
+<div class="line">> NOTE:</div>
+<div class="line">> "the signal was hidden in the sound"</div>
+<div class="line">> "dots and dashes tell the truth"</div>
+
+<br>
+
+<div class="line">> ENTER SECONDARY CODE:</div>
+
+<input id="code" style="background:black;color:#00ff00;border:1px solid #00ff00;">
+<button onclick="check()">ENTER</button>
+
+<p id="output"></p>
+
+<div class="line blink">> _</div>
+
+</div>
+
+<script>
+
+function locked(){
+alert("FILE CORRUPTED");
+}
+
+function check(){
+let c = document.getElementById("code").value.toLowerCase();
+
+if(c == "test6"){
+window.location.href="report4.html";
+}
+else if(c == "signal"){
+window.location.href="video1.html";
+}
+else{
+document.getElementById("output").innerHTML="> ACCESS DENIED";
+}
+}
+
+// creepy random text
+setInterval(()=>{
+if(Math.random() < 0.2){
+let lines = document.getElementsByClassName("line");
+lines[Math.floor(Math.random()*lines.length)].innerHTML="> it hears you";
+}
+},4000);
+
+</script>
+
+</body>
+</html>
