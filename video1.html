@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>VIDEO_01</title>
+
+<style>
+body{
+background:black;
+color:red;
+font-family:monospace;
+text-align:center;
+}
+
+/* glitch effect */
+@keyframes glitch {
+0%{transform:translate(0);}
+20%{transform:translate(-3px,3px);}
+40%{transform:translate(3px,-3px);}
+60%{transform:translate(-2px,2px);}
+80%{transform:translate(2px,-2px);}
+100%{transform:translate(0);}
+}
+
+h1{
+animation:glitch 0.3s infinite;
+}
+
+video{
+margin-top:20px;
+width:80%;
+border:2px solid red;
+}
+
+/* hidden flash text */
+#flashText{
+position:fixed;
+top:40%;
+left:0;
+width:100%;
+font-size:40px;
+color:white;
+display:none;
+}
+</style>
+</head>
+
+<body>
+
+<h1>VIDEO_01</h1>
+
+<p>> playback unstable</p>
+
+<video id="vid" controls autoplay>
+<source src="video1.mp4" type="video/mp4">
+</video>
+
+<p id="msg"></p>
+
+<div id="flashText">LIMBS</div>
+
+<script>
+
+// creepy message after video starts
+setTimeout(()=>{
+document.getElementById("msg").innerHTML="something is wrong";
+},4000);
+
+setTimeout(()=>{
+document.getElementById("msg").innerHTML="it moved when no one was there";
+},8000);
+
+// FLASH CLUE (important 👁️)
+setTimeout(()=>{
+document.getElementById("flashText").style.display="block";
+
+setTimeout(()=>{
+document.getElementById("flashText").style.display="none";
+},200);
+
+},6000);
+
+// random glitch message
+setInterval(()=>{
+if(Math.random() < 0.2){
+document.getElementById("msg").innerHTML="it is behind you";
+}
+},5000);
+
+// rare jumpscare 😈
+setTimeout(()=>{
+if(Math.random() < 0.3){
+document.body.innerHTML = "<h1>DON'T WATCH</h1>";
+}
+},15000);
+
+</script>
+
+<!-- clue: limbs -->
+
+</body>
+</html>
