@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>REPORT_04</title>
+
+<style>
+body{
+background:black;
+color:#00ff00;
+font-family:monospace;
+text-align:center;
+}
+
+img{
+max-width:90%;
+margin-top:20px;
+border:2px solid #00ff00;
+filter:contrast(120%);
+}
+
+/* glitch text */
+.glitch{
+animation:glitch 0.2s infinite;
+}
+
+@keyframes glitch {
+0%{transform:translate(0);}
+50%{transform:translate(2px,-2px);}
+100%{transform:translate(0);}
+}
+</style>
+</head>
+
+<body>
+
+<h1 class="glitch">REPORT_04</h1>
+
+<p>> FILE PARTIALLY REDACTED</p>
+<p>> BIOHAZARD WARNING</p>
+
+<img src="report4.png">
+
+<p id="text"></p>
+
+<script>
+
+// creepy messages
+setTimeout(()=>{
+document.getElementById("text").innerHTML="it reacted to contact";
+},4000);
+
+setTimeout(()=>{
+document.getElementById("text").innerHTML="the blood is not dead";
+},8000);
+
+setTimeout(()=>{
+document.getElementById("text").innerHTML="it spreads";
+},12000);
+
+// random glitch message
+setInterval(()=>{
+if(Math.random() < 0.3){
+document.getElementById("text").innerHTML="DO NOT TOUCH IT";
+}
+},5000);
+
+// rare scare
+setTimeout(()=>{
+if(Math.random() < 0.4){
+document.body.innerHTML="<h1>INFECTED</h1>";
+}
+},15000);
+
+</script>
+
+<!-- clue: 6 tests -->
+
+</body>
+</html>
