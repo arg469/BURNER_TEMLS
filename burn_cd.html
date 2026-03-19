@@ -2,14 +2,13 @@
 <html>
 <head>
 <title>ARCHIVE_TERMINAL</title>
-
+  
 <style>
 body{
 background:black;
 color:#00ff00;
 font-family:monospace;
 padding:20px;
-}
 
 #terminal{
 max-width:800px;
@@ -102,6 +101,12 @@ else{
 document.getElementById("output").innerHTML="> ACCESS DENIED";
 }
 }
+
+  document.getElementById("code").addEventListener("keydown", function(e){
+if(e.key === "Enter"){
+check();
+}
+});<input id="code" autofocus>
 // creepy random text
 setInterval(()=>{
 if(Math.random() < 0.2){
