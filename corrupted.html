@@ -13,29 +13,45 @@ margin:0;
 animation:flicker 0.15s infinite;
 }
 
-/* flicker effect */
+/* flicker */
 @keyframes flicker{
 0%{opacity:1;}
 50%{opacity:0.85;}
 100%{opacity:1;}
 }
 
-/* screen shake */
+/* normal shake */
 .shake{
-animation:shake 0.1s infinite;
+animation:shake 0.2s infinite;
+}
+
+/* intense shake */
+.shakeHard{
+animation:shakeHard 0.05s infinite;
 }
 
 @keyframes shake{
-0%{transform:translate(0px,0px);}
-25%{transform:translate(2px,-2px);}
-50%{transform:translate(-2px,2px);}
-75%{transform:translate(2px,2px);}
-100%{transform:translate(-2px,-2px);}
+0%{transform:translate(0,0);}
+25%{transform:translate(1px,-1px);}
+50%{transform:translate(-1px,1px);}
+75%{transform:translate(1px,1px);}
+100%{transform:translate(-1px,-1px);}
+}
+
+@keyframes shakeHard{
+0%{transform:translate(0,0);}
+25%{transform:translate(5px,-5px);}
+50%{transform:translate(-5px,5px);}
+75%{transform:translate(5px,5px);}
+100%{transform:translate(-5px,-5px);}
 }
 
 /* glitch text */
 .glitch{
 position:relative;
+font-size:30px;
+text-align:center;
+margin-top:40px;
 }
 
 .glitch::before,
@@ -44,7 +60,6 @@ content:attr(data-text);
 position:absolute;
 left:0;
 width:100%;
-overflow:hidden;
 }
 
 .glitch::before{
@@ -71,7 +86,7 @@ animation:glitch2 0.3s infinite;
 100%{clip:rect(0,9999px,0,0);}
 }
 
-/* static noise overlay */
+/* static overlay */
 #noise{
 position:fixed;
 top:0;
@@ -84,7 +99,6 @@ opacity:0.08;
 z-index:9999;
 }
 </style>
-
 </head>
 
 <body class="shake">
@@ -92,104 +106,87 @@ z-index:9999;
 <div id="noise"></div>
 
 <h1 class="glitch" data-text="ARCHIVE CORRUPTED">ARCHIVE CORRUPTED</h1>
-
 <p class="glitch" data-text="DATA STREAM UNSTABLE">DATA STREAM UNSTABLE</p>
-
 <p class="glitch" data-text="...ACCESS DENIED...">...ACCESS DENIED...</p>
 
-<br>
-
-<p class="glitch" data-text="SYSTEM FRAGMENTED">SYSTEM FRAGMENTED</p>
-<p class="glitch" data-text="UNKNOWN ENTITY DETECTED">UNKNOWN ENTITY DETECTED</p>
-
-<br>
-
-<button onclick="escapeSystem()">RETURN</button>
-
-<audio id="glitchSound" loop autoplay>
-<source src="glitch.mp3" type="audio/mpeg">
+<!-- 🎧 YOUR MUSIC -->
+<audio id="bgm" loop>
+<source src="corrupt_music.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 
-/* random text corruption */
-setInterval(()=>{
-let texts = document.querySelectorAll(".glitch");
-texts.forEach(t=>{
-if(Math.random() < 0.3){
-t.innerText = "█▒▓ CORRUPTED ▓▒█";
-}
-});
-},500);
+let music = document.getElementById("bgm");
 
-/* escape button */
-function escapeSystem(){
-window.location.href = "index.html";
-}
+/* start music on first click */
+document.body.addEventListener("click", ()=>{
+music.play();
+}, { once: true });
 
-/* random forced shake bursts */
-setInterval(()=>{
-document.body.classList.toggle("shake");
-},200);
-
-/* glitch audio distortion (optional) */
-let audio = document.getElementById("glitchSound");
-audio.playbackRate = 1.2;
 let intense = false;
 
-/* normal corruption (light) */
+/* normal corruption */
 setInterval(()=>{
-let texts = document.querySelectorAll(".glitch");
-
-texts.forEach(t=>{
-if(!intense && Math.random() < 0.2){
-t.innerText = "█▒▒ DATA CORRUPTED ▒▒█";
+if(!intense){
+document.querySelectorAll(".glitch").forEach(t=>{
+if(Math.random() < 0.2){
+t.innerText = "█▒ DATA LOST ▒█";
 }
 });
-
+}
 },800);
 
-
-/* 🔥 INTENSE GLITCH BURSTS */
+/* 🔥 GLITCH BURST */
 function startBurst(){
 
 intense = true;
-document.body.classList.add("shake");
+document.body.classList.remove("shake");
+document.body.classList.add("shakeHard");
 
-let burstInterval = setInterval(()=>{
+/* distort music */
+music.playbackRate = 1.5;
+music.volume = 0.7;
 
-let texts = document.querySelectorAll(".glitch");
-
-texts.forEach(t=>{
+let burst = setInterval(()=>{
+document.querySelectorAll(".glitch").forEach(t=>{
 t.innerText = "█▓" + Math.random().toString(36).substring(2,8).toUpperCase() + "▓█";
 });
+},100);
 
-},100); // FAST TEXT CHAOS
-
-// stop burst after a few seconds
+/* stop burst */
 setTimeout(()=>{
-clearInterval(burstInterval);
+clearInterval(burst);
 intense = false;
-document.body.classList.remove("shake");
 
-resetText();
+document.body.classList.remove("shakeHard");
+document.body.classList.add("shake");
+
+/* reset text */
+document.querySelectorAll(".glitch").forEach(t=>{
+t.innerText = t.getAttribute("data-text");
+});
+
+/* reset music */
+music.playbackRate = 1;
+music.volume = 1;
 
 },3000);
 }
 
-/* restore original text */
-function resetText(){
-document.querySelectorAll(".glitch").forEach(t=>{
-t.innerText = t.getAttribute("data-text");
-});
-}
-
-/* randomly trigger bursts */
+/* random burst trigger */
 setInterval(()=>{
 if(Math.random() < 0.3){
 startBurst();
 }
 },5000);
+
+/* random audio glitch */
+setInterval(()=>{
+if(music.duration && Math.random() < 0.2){
+music.currentTime = Math.random() * music.duration;
+}
+},4000);
+
 </script>
 
 </body>
