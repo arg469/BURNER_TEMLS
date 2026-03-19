@@ -1,130 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>CORRUPTED</title>
-
-<style>
-body{
-background:black;
-color:#00ff00;
-font-family:monospace;
-overflow:hidden;
-margin:0;
-animation:flicker 0.15s infinite;
-}
-
-/* flicker */
-@keyframes flicker{
-0%{opacity:1;}
-50%{opacity:0.85;}
-100%{opacity:1;}
-}
-
-/* normal shake */
-.shake{
-animation:shake 0.2s infinite;
-}
-
-/* intense shake */
-.shakeHard{
-animation:shakeHard 0.05s infinite;
-}
-
-@keyframes shake{
-0%{transform:translate(0,0);}
-25%{transform:translate(1px,-1px);}
-50%{transform:translate(-1px,1px);}
-75%{transform:translate(1px,1px);}
-100%{transform:translate(-1px,-1px);}
-}
-
-@keyframes shakeHard{
-0%{transform:translate(0,0);}
-25%{transform:translate(5px,-5px);}
-50%{transform:translate(-5px,5px);}
-75%{transform:translate(5px,5px);}
-100%{transform:translate(-5px,-5px);}
-}
-
-/* glitch text */
-.glitch{
-position:relative;
-font-size:30px;
-text-align:center;
-margin-top:40px;
-}
-
-.glitch::before,
-.glitch::after{
-content:attr(data-text);
-position:absolute;
-left:0;
-width:100%;
-}
-
-.glitch::before{
-left:2px;
-text-shadow:-2px 0 red;
-animation:glitch1 0.3s infinite;
-}
-
-.glitch::after{
-left:-2px;
-text-shadow:2px 0 blue;
-animation:glitch2 0.3s infinite;
-}
-
-@keyframes glitch1{
-0%{clip:rect(0,9999px,0,0);}
-50%{clip:rect(10px,9999px,40px,0);}
-100%{clip:rect(0,9999px,0,0);}
-}
-
-@keyframes glitch2{
-0%{clip:rect(0,9999px,0,0);}
-50%{clip:rect(30px,9999px,80px,0);}
-100%{clip:rect(0,9999px,0,0);}
-}
-
-/* static overlay */
-#noise{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-pointer-events:none;
-background:url("noise.gif");
-opacity:0.08;
-z-index:9999;
-}
-</style>
-</head>
-
-<body class="shake">
-
-<div id="noise"></div>
-
-<h1 class="glitch" data-text="ARCHIVE CORRUPTED">ARCHIVE CORRUPTED</h1>
-<p class="glitch" data-text="DATA STREAM UNSTABLE">DATA STREAM UNSTABLE</p>
-<p class="glitch" data-text="...ACCESS DENIED...">...ACCESS DENIED...</p>
-
-<!-- 🎧 YOUR MUSIC -->
-<audio id="bgm" loop>
-<source src="corrupt_music.mp3" type="audio/mpeg">
-</audio>
-
 <script>
 
 let music = document.getElementById("bgm");
 
-/* start music on first click */
+/* start music */
 document.body.addEventListener("click", ()=>{
 music.play();
 }, { once: true });
 
 let intense = false;
-
+  
+.corrupt-link{
+color:red;
+cursor:pointer;
+text-decoration:underline;
+}
+  
 /* normal corruption */
 setInterval(()=>{
 if(!intense){
@@ -136,42 +26,41 @@ t.innerText = "█▒ DATA LOST ▒█";
 }
 },800);
 
-/* 🔥 GLITCH BURST */
-document.querySelectorAll(".glitch").forEach(t=>{
-
-// 40% chance to become clickable
-if(Math.random() < 0.4){
-
-let randomText = "█▓" + Math.random().toString(36).substring(2,8).toUpperCase() + "▓█";
-
-// pick random destination
-let link = Math.random() < 0.5 ? "corrupt_video.html" : "corrupt_report.html";
-
-t.innerHTML = `<span class="corrupt-link" onclick="goCorrupt('${link}')">${randomText}</span>`;
-
-}else{
-
-t.innerText = "█▓" + Math.random().toString(36).substring(2,8).toUpperCase() + "▓█";
-
-}
-
-});function goCorrupt(page){
-
+/* 👁 CLICKABLE REDIRECT */
+function goCorrupt(page){
 document.body.innerHTML = "<h1 style='color:red;text-align:center;margin-top:20%;'>CONNECTION LOST...</h1>";
-
 setTimeout(()=>{
 window.location.href = page;
 },1500);
-
 }
+
+/* 🔥 GLITCH BURST FUNCTION (FIXED) */
+function startBurst(){
+
+intense = true;
+
+document.body.classList.remove("shake");
+document.body.classList.add("shakeHard");
 
 /* distort music */
 music.playbackRate = 1.5;
 music.volume = 0.7;
 
+/* chaos text */
 let burst = setInterval(()=>{
 document.querySelectorAll(".glitch").forEach(t=>{
+
+if(Math.random() < 0.4){
+
+let randomText = "█▓" + Math.random().toString(36).substring(2,8).toUpperCase() + "▓█";
+let link = Math.random() < 0.5 ? "corrupt_video.html" : "corrupt_report.html";
+
+t.innerHTML = `<span class="corrupt-link" onclick="goCorrupt('${link}')">${randomText}</span>`;
+
+}else{
 t.innerText = "█▓" + Math.random().toString(36).substring(2,8).toUpperCase() + "▓█";
+}
+
 });
 },100);
 
@@ -195,7 +84,7 @@ music.volume = 1;
 },3000);
 }
 
-/* random burst trigger */
+/* trigger bursts randomly */
 setInterval(()=>{
 if(Math.random() < 0.3){
 startBurst();
@@ -210,6 +99,3 @@ music.currentTime = Math.random() * music.duration;
 },4000);
 
 </script>
-
-</body>
-</html>
