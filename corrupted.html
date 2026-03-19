@@ -1,20 +1,110 @@
-<script>
+<!DOCTYPE html>
+<html>
+<head>
+<title>CORRUPTED</title>
 
-let music = document.getElementById("bgm");
+<style>
+body{
+background:black;
+color:#00ff00;
+font-family:monospace;
+overflow:hidden;
+margin:0;
+animation:flicker 0.15s infinite;
+}
 
-/* start music */
-document.body.addEventListener("click", ()=>{
-music.play();
-}, { once: true });
+/* flicker */
+@keyframes flicker{
+0%{opacity:1;}
+50%{opacity:0.85;}
+100%{opacity:1;}
+}
 
-let intense = false;
-  
+/* normal shake */
+.shake{
+animation:shake 0.2s infinite;
+}
+
+/* intense shake */
+.shakeHard{
+animation:shakeHard 0.05s infinite;
+}
+
+@keyframes shake{
+0%{transform:translate(0,0);}
+25%{transform:translate(1px,-1px);}
+50%{transform:translate(-1px,1px);}
+75%{transform:translate(1px,1px);}
+100%{transform:translate(-1px,-1px);}
+}
+
+@keyframes shakeHard{
+0%{transform:translate(0,0);}
+25%{transform:translate(5px,-5px);}
+50%{transform:translate(-5px,5px);}
+75%{transform:translate(5px,5px);}
+100%{transform:translate(-5px,-5px);}
+}
+
+/* glitch text */
+.glitch{
+position:relative;
+font-size:30px;
+text-align:center;
+margin-top:40px;
+}
+
+/* clickable corrupted text */
 .corrupt-link{
 color:red;
 cursor:pointer;
 text-decoration:underline;
 }
-  
+
+/* static overlay */
+#noise{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+background:url("assets/noise.gif");
+opacity:0.08;
+z-index:9999;
+}
+</style>
+</head>
+
+<body class="shake">
+
+<div id="noise"></div>
+
+<h1 class="glitch" data-text="ARCHIVE CORRUPTED">ARCHIVE CORRUPTED</h1>
+<p class="glitch" data-text="DATA STREAM UNSTABLE">DATA STREAM UNSTABLE</p>
+<p class="glitch" data-text="...ACCESS DENIED...">...ACCESS DENIED...</p>
+
+<!-- 🎧 MUSIC -->
+<audio id="bgm" loop>
+<source src="assets/corrupt_music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+let music;
+
+/* wait until page loads */
+window.onload = () => {
+music = document.getElementById("bgm");
+};
+
+/* start music */
+document.addEventListener("click", ()=>{
+if(music) music.play().catch(()=>{});
+}, { once: true });
+
+let intense = false;
+
 /* normal corruption */
 setInterval(()=>{
 if(!intense){
@@ -34,7 +124,7 @@ window.location.href = page;
 },1500);
 }
 
-/* 🔥 GLITCH BURST FUNCTION (FIXED) */
+/* 🔥 GLITCH BURST */
 function startBurst(){
 
 intense = true;
@@ -43,8 +133,10 @@ document.body.classList.remove("shake");
 document.body.classList.add("shakeHard");
 
 /* distort music */
+if(music){
 music.playbackRate = 1.5;
 music.volume = 0.7;
+}
 
 /* chaos text */
 let burst = setInterval(()=>{
@@ -78,13 +170,15 @@ t.innerText = t.getAttribute("data-text");
 });
 
 /* reset music */
+if(music){
 music.playbackRate = 1;
 music.volume = 1;
+}
 
 },3000);
 }
 
-/* trigger bursts randomly */
+/* trigger bursts */
 setInterval(()=>{
 if(Math.random() < 0.3){
 startBurst();
@@ -93,9 +187,12 @@ startBurst();
 
 /* random audio glitch */
 setInterval(()=>{
-if(music.duration && Math.random() < 0.2){
+if(music && music.duration && Math.random() < 0.2){
 music.currentTime = Math.random() * music.duration;
 }
 },4000);
 
 </script>
+
+</body>
+</html>
