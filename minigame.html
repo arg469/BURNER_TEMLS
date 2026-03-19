@@ -46,8 +46,8 @@ z-index:9999;
 
 <body>
 
-<h2 id="counter">REMOVED: 0 / 30</h2>
-<h2 id="timer">TIME: 30</h2>
+<h2 id="counter">REMOVED: 0 / 40</h2>
+<h2 id="timer">TIME: 50</h2>
 
 <img id="scare" src="scare.png">
 
@@ -67,7 +67,7 @@ z-index:9999;
 <script>
 
 let removed = 0;
-let time = 30;
+let time = 50;
 
 // 🎵 start music on first click
 document.body.addEventListener("click", ()=>{
@@ -94,7 +94,7 @@ img.onclick = function(){
 img.remove();
 removed++;
 
-document.getElementById("counter").innerHTML = "REMOVED: " + removed + " / 30";
+document.getElementById("counter").innerHTML = "REMOVED: " + removed + " / 40";
 
 if(removed >= 30){
 winGame();
