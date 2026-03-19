@@ -87,7 +87,7 @@ alert("FILE CORRUPTED");
 }
 
 function check(){
-let c = document.getElementById("code").value.toLowerCase();
+let c = document.getElementById("code").value.toLowerCase().trim();
 
 if(c == "test6"){
 window.location.href="report4.html";
@@ -96,13 +96,12 @@ else if(c == "signal"){
 window.location.href="video1.html";
 }
 else if(c == "containment"){
-window.location.href="minigame.html"; // 👁 THIS IS NEW
+window.location.href="minigame.html";
 }
 else{
 document.getElementById("output").innerHTML="> ACCESS DENIED";
 }
 }
-
 // creepy random text
 setInterval(()=>{
 if(Math.random() < 0.2){
