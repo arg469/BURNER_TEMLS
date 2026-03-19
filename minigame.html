@@ -3,6 +3,11 @@
 <head>
 <title>CONTAINMENT_PROTOCOL</title>
 
+//start music after user interaction
+document.body.addEventListener("click", ()=>{
+document.getElementById("bgm").play();
+}, { once: true });
+  
 <style>
 body{
 background:black;
@@ -11,6 +16,13 @@ margin:0;
 font-family:monospace;
 color:#00ff00;
 }
+  <audio id="bgm" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="spawnSound">
+  <source src="spawn.mp3" type="audio/mpeg">
+</audio>
 
 #counter{
 position:fixed;
@@ -61,11 +73,30 @@ let removed = 0;
 let time = 25;
 
 // spawn popup
-function spawnPopup(){
-
 let img = document.createElement("img");
-img.src = "Drawing-13.sketchpad.png"; // YOUR IMAGE NAME
+img.src = "Drawing-13.sketchpad.png";
 img.className = "popup";
+
+// 🔊 PLAY SPAWN SOUND
+let s = document.getElementById("spawnSound");
+s.currentTime = 0;
+s.play();
+
+img.style.left = Math.random() * (window.innerWidth - 120) + "px";
+img.style.top = Math.random() * (window.innerHeight - 120) + "px";
+
+img.onclick = function(){
+img.remove();
+removed++;
+document.getElementById("counter").innerHTML = "REMOVED: " + removed + " / 13";
+
+if(removed >= 13){
+winGame();
+}
+};
+
+document.body.appendChild(img);
+}
 
 // random position
 img.style.left = Math.random() * (window.innerWidth - 120) + "px";
