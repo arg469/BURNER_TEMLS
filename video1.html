@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>VIDEO_01</title>
+
+<style>
+body{
+background:black;
+color:red;
+text-align:center;
+font-family:monospace;
+}
+video{
+width:80%;
+margin-top:20px;
+border:2px solid red;
+}
+</style>
+</head>
+
+<body>
+
+<h1>EXPERIMENT FOOTAGE 01</h1>
+
+<video controls>
+<source src="video1.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+
+<p id="text"></p>
+
+<script>
+
+// creepy messages
+setTimeout(()=>{
+document.getElementById("text").innerHTML="test subject reacted";
+},4000);
+
+setTimeout(()=>{
+document.getElementById("text").innerHTML="audio contains hidden signal";
+},8000);
+<p>> decoding audio...</p>
+</script>
+
+</body>
+</html>
