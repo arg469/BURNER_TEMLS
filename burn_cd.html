@@ -94,14 +94,9 @@ window.location.href="report4.html";
 }
 else if(c == "signal"){
 window.location.href="video1.html";
-  
-  else if(c == "containment"){
-document.body.innerHTML="> INITIATING CONTAINMENT PROTOCOL...";
-setTimeout(()=>{
-window.location.href="minigame.html";
-},2000);
 }
-  
+else if(c == "containment"){
+window.location.href="minigame.html"; // 👁 THIS IS NEW
 }
 else{
 document.getElementById("output").innerHTML="> ACCESS DENIED";
