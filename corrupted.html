@@ -137,11 +137,33 @@ t.innerText = "█▒ DATA LOST ▒█";
 },800);
 
 /* 🔥 GLITCH BURST */
-function startBurst(){
+document.querySelectorAll(".glitch").forEach(t=>{
 
-intense = true;
-document.body.classList.remove("shake");
-document.body.classList.add("shakeHard");
+// 40% chance to become clickable
+if(Math.random() < 0.4){
+
+let randomText = "█▓" + Math.random().toString(36).substring(2,8).toUpperCase() + "▓█";
+
+// pick random destination
+let link = Math.random() < 0.5 ? "corrupt_video.html" : "corrupt_report.html";
+
+t.innerHTML = `<span class="corrupt-link" onclick="goCorrupt('${link}')">${randomText}</span>`;
+
+}else{
+
+t.innerText = "█▓" + Math.random().toString(36).substring(2,8).toUpperCase() + "▓█";
+
+}
+
+});function goCorrupt(page){
+
+document.body.innerHTML = "<h1 style='color:red;text-align:center;margin-top:20%;'>CONNECTION LOST...</h1>";
+
+setTimeout(()=>{
+window.location.href = page;
+},1500);
+
+}
 
 /* distort music */
 music.playbackRate = 1.5;
