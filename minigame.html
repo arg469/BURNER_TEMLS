@@ -3,11 +3,6 @@
 <head>
 <title>CONTAINMENT_PROTOCOL</title>
 
-//start music after user interaction
-document.body.addEventListener("click", ()=>{
-document.getElementById("bgm").play();
-}, { once: true });
-  
 <style>
 body{
 background:black;
@@ -16,13 +11,6 @@ margin:0;
 font-family:monospace;
 color:#00ff00;
 }
-  <audio id="bgm" loop>
-  <source src="music.mp3" type="audio/mpeg">
-</audio>
-
-<audio id="spawnSound">
-  <source src="spawn.mp3" type="audio/mpeg">
-</audio>
 
 #counter{
 position:fixed;
@@ -59,7 +47,7 @@ z-index:9999;
 <body>
 
 <h2 id="counter">REMOVED: 0 / 30</h2>
-<h2 id="timer">TIME: 25</h2>
+<h2 id="timer">TIME: 30</h2>
 
 <img id="scare" src="scare.png">
 
@@ -67,48 +55,47 @@ z-index:9999;
 <source src="scream.mp3" type="audio/mpeg">
 </audio>
 
+<!-- 🎵 AUDIO -->
+<audio id="bgm" loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="spawnSound">
+<source src="spawn.mp3" type="audio/mpeg">
+</audio>
+
 <script>
 
 let removed = 0;
-let time = 25;
+let time = 30;
 
-// spawn popup
+// 🎵 start music on first click
+document.body.addEventListener("click", ()=>{
+document.getElementById("bgm").play();
+}, { once: true });
+
+// 🔥 SPAWN FUNCTION
+function spawnPopup(){
+
 let img = document.createElement("img");
 img.src = "Drawing-13.sketchpad.png";
 img.className = "popup";
-
-// 🔊 PLAY SPAWN SOUND
-let s = document.getElementById("spawnSound");
-s.currentTime = 0;
-s.play();
-
-img.style.left = Math.random() * (window.innerWidth - 120) + "px";
-img.style.top = Math.random() * (window.innerHeight - 120) + "px";
-
-img.onclick = function(){
-img.remove();
-removed++;
-document.getElementById("counter").innerHTML = "REMOVED: " + removed + " / 13";
-
-if(removed >= 13){
-winGame();
-}
-};
-
-document.body.appendChild(img);
-}
 
 // random position
 img.style.left = Math.random() * (window.innerWidth - 120) + "px";
 img.style.top = Math.random() * (window.innerHeight - 120) + "px";
 
+// 🔊 spawn sound (overlap)
+let s = document.getElementById("spawnSound").cloneNode();
+s.play();
+
 // click = remove
 img.onclick = function(){
 img.remove();
 removed++;
+
 document.getElementById("counter").innerHTML = "REMOVED: " + removed + " / 30";
 
-// WIN CONDITION 👁️
 if(removed >= 30){
 winGame();
 }
@@ -140,7 +127,7 @@ clearInterval(countdown);
 document.body.innerHTML = "<h1 style='color:lime;text-align:center;margin-top:20%;'>CONTAINMENT SUCCESSFUL</h1>";
 
 setTimeout(()=>{
-window.location.href = "win.html"; // CHANGE THIS if needed
+window.location.href = "win.html";
 },3000);
 }
 
