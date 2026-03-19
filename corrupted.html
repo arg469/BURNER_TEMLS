@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>CORRUPTED</title>
+
+<style>
+body{
+background:black;
+color:#00ff00;
+font-family:monospace;
+overflow:hidden;
+margin:0;
+animation:flicker 0.15s infinite;
+}
+
+/* flicker effect */
+@keyframes flicker{
+0%{opacity:1;}
+50%{opacity:0.85;}
+100%{opacity:1;}
+}
+
+/* screen shake */
+.shake{
+animation:shake 0.1s infinite;
+}
+
+@keyframes shake{
+0%{transform:translate(0px,0px);}
+25%{transform:translate(2px,-2px);}
+50%{transform:translate(-2px,2px);}
+75%{transform:translate(2px,2px);}
+100%{transform:translate(-2px,-2px);}
+}
+
+/* glitch text */
+.glitch{
+position:relative;
+}
+
+.glitch::before,
+.glitch::after{
+content:attr(data-text);
+position:absolute;
+left:0;
+width:100%;
+overflow:hidden;
+}
+
+.glitch::before{
+left:2px;
+text-shadow:-2px 0 red;
+animation:glitch1 0.3s infinite;
+}
+
+.glitch::after{
+left:-2px;
+text-shadow:2px 0 blue;
+animation:glitch2 0.3s infinite;
+}
+
+@keyframes glitch1{
+0%{clip:rect(0,9999px,0,0);}
+50%{clip:rect(10px,9999px,40px,0);}
+100%{clip:rect(0,9999px,0,0);}
+}
+
+@keyframes glitch2{
+0%{clip:rect(0,9999px,0,0);}
+50%{clip:rect(30px,9999px,80px,0);}
+100%{clip:rect(0,9999px,0,0);}
+}
+
+/* static noise overlay */
+#noise{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+background:url("noise.gif");
+opacity:0.08;
+z-index:9999;
+}
+</style>
+
+</head>
+
+<body class="shake">
+
+<div id="noise"></div>
+
+<h1 class="glitch" data-text="ARCHIVE CORRUPTED">ARCHIVE CORRUPTED</h1>
+
+<p class="glitch" data-text="DATA STREAM UNSTABLE">DATA STREAM UNSTABLE</p>
+
+<p class="glitch" data-text="...ACCESS DENIED...">...ACCESS DENIED...</p>
+
+<br>
+
+<p class="glitch" data-text="SYSTEM FRAGMENTED">SYSTEM FRAGMENTED</p>
+<p class="glitch" data-text="UNKNOWN ENTITY DETECTED">UNKNOWN ENTITY DETECTED</p>
+
+<br>
+
+<button onclick="escapeSystem()">RETURN</button>
+
+<audio id="glitchSound" loop autoplay>
+<source src="glitch.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+/* random text corruption */
+setInterval(()=>{
+let texts = document.querySelectorAll(".glitch");
+texts.forEach(t=>{
+if(Math.random() < 0.3){
+t.innerText = "█▒▓ CORRUPTED ▓▒█";
+}
+});
+},500);
+
+/* escape button */
+function escapeSystem(){
+window.location.href = "index.html";
+}
+
+/* random forced shake bursts */
+setInterval(()=>{
+document.body.classList.toggle("shake");
+},200);
+
+/* glitch audio distortion (optional) */
+let audio = document.getElementById("glitchSound");
+audio.playbackRate = 1.2;
+let intense = false;
+
+/* normal corruption (light) */
+setInterval(()=>{
+let texts = document.querySelectorAll(".glitch");
+
+texts.forEach(t=>{
+if(!intense && Math.random() < 0.2){
+t.innerText = "█▒▒ DATA CORRUPTED ▒▒█";
+}
+});
+
+},800);
+
+
+/* 🔥 INTENSE GLITCH BURSTS */
+function startBurst(){
+
+intense = true;
+document.body.classList.add("shake");
+
+let burstInterval = setInterval(()=>{
+
+let texts = document.querySelectorAll(".glitch");
+
+texts.forEach(t=>{
+t.innerText = "█▓" + Math.random().toString(36).substring(2,8).toUpperCase() + "▓█";
+});
+
+},100); // FAST TEXT CHAOS
+
+// stop burst after a few seconds
+setTimeout(()=>{
+clearInterval(burstInterval);
+intense = false;
+document.body.classList.remove("shake");
+
+resetText();
+
+},3000);
+}
+
+/* restore original text */
+function resetText(){
+document.querySelectorAll(".glitch").forEach(t=>{
+t.innerText = t.getAttribute("data-text");
+});
+}
+
+/* randomly trigger bursts */
+setInterval(()=>{
+if(Math.random() < 0.3){
+startBurst();
+}
+},5000);
+</script>
+
+</body>
+</html>
