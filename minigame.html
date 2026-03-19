@@ -46,7 +46,7 @@ z-index:9999;
 
 <body>
 
-<h2 id="counter">REMOVED: 0 / 13</h2>
+<h2 id="counter">REMOVED: 0 / 30</h2>
 <h2 id="timer">TIME: 25</h2>
 
 <img id="scare" src="scare.png">
@@ -75,10 +75,10 @@ img.style.top = Math.random() * (window.innerHeight - 120) + "px";
 img.onclick = function(){
 img.remove();
 removed++;
-document.getElementById("counter").innerHTML = "REMOVED: " + removed + " / 13";
+document.getElementById("counter").innerHTML = "REMOVED: " + removed + " / 30";
 
 // WIN CONDITION 👁️
-if(removed >= 13){
+if(removed >= 30){
 winGame();
 }
 };
